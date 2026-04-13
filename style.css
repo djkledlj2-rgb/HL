@@ -5,6 +5,16 @@
     margin-bottom: 4px;
 }
 
+td:first-child, th:first-child {
+    text-align: left;
+    width: 50%;
+}
+
+td:not(:first-child), th:not(:first-child) {
+    text-align: center;
+    width: 25%;
+}
+
 .info {
     background-color: #1a1a1a;
     color: #ffffff;
