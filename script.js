@@ -25,8 +25,6 @@ document.getElementById('csvFile').addEventListener('change', function(e) {
             }
         });
 
-        console.log('строк для записывания:', rows.length);
-
         const delRes = await fetch(`${SUPABASE_URL}/rest/v1/resources?id=gte.0`, {
             method: 'DELETE',
             headers: {
@@ -35,7 +33,6 @@ document.getElementById('csvFile').addEventListener('change', function(e) {
                 'Content-Type': 'application/json'
             }
         });
-        console.log('Видалення:', delRes.status);
 
         const postRes = await fetch(`${SUPABASE_URL}/rest/v1/resources`, {
             method: 'POST',
@@ -47,17 +44,26 @@ document.getElementById('csvFile').addEventListener('change', function(e) {
             },
             body: JSON.stringify(rows)
         });
-        console.log('Записывание:', postRes.status);
 
         if (postRes.ok) {
-            console.log('Данные записаны успешно! ✅');
             loadData();
-        } else {
-            const err = await postRes.text();
-            console.error('Ошибка импорта:', err);
         }
     };
 });
+
+async function updateAvailable(id, newValue) {
+    await fetch(`${SUPABASE_URL}/rest/v1/resources?id=eq.${id}`, {
+        method: 'PATCH',
+        headers: {
+            'apikey': SUPABASE_KEY,
+            'Authorization': `Bearer ${SUPABASE_KEY}`,
+            'Content-Type': 'application/json',
+            'Prefer': 'return=minimal'
+        },
+        body: JSON.stringify({ available: parseInt(newValue) || 0 })
+    });
+    loadData();
+}
 
 async function loadData() {
     const res = await fetch(`${SUPABASE_URL}/rest/v1/resources?select=*&order=total.desc`, {
@@ -67,10 +73,7 @@ async function loadData() {
         }
     });
 
-    console.log('Загрузка:', res.status);
     const data = await res.json();
-    console.log('Получено:', data.length);
-
     const tbody = document.getElementById('tableBody');
     tbody.innerHTML = '';
 
@@ -80,8 +83,47 @@ async function loadData() {
             <tr>
                 <td>${row.name}</td>
                 <td>${row.total}</td>
-                <td style="color:${color}; font-weight:600">${row.available}</td>
+                <td>
+                    <span 
+                        style="color:${color}; font-weight:600; cursor:pointer;"
+                        onclick="startEdit(this, ${row.id}, ${row.available})"
+                        title="Натисни щоб змінити"
+                    >${row.available}</span>
+                </td>
             </tr>
         `;
+    });
+}
+
+function startEdit(span, id, currentValue) {
+    const input = document.createElement('input');
+    input.type = 'number';
+    input.value = currentValue;
+    input.style.cssText = `
+        width: 60px;
+        background: #2a2a2a;
+        color: #ffffff;
+        border: 1px solid #e63946;
+        border-radius: 4px;
+        padding: 2px 6px;
+        font-size: 14px;
+        text-align: center;
+    `;
+
+    span.replaceWith(input);
+    input.focus();
+    input.select();
+
+    input.addEventListener('keydown', function(e) {
+        if (e.key === 'Enter') {
+            updateAvailable(id, input.value);
+        }
+        if (e.key === 'Escape') {
+            loadData();
+        }
+    });
+
+    input.addEventListener('blur', function() {
+        updateAvailable(id, input.value);
     });
 }
