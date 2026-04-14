@@ -138,18 +138,18 @@ td:not(:first-child), th:not(:first-child) {
 table {
   width: 100%;
   border-collapse: collapse;
-  background-color: #111111;
+  background-color: #1a1a1a;
   color: #ffffff;
 }
 
 th, td {
   padding: 12px 16px;
-  border: 1px solid #333;
+  border: 1px solid #2a2a2a;
   text-align: left;
 }
 
 th {
-  background: linear-gradient(90deg, #1e1e1e, #2a1a1a);
+  background: #1e1e1e;
   text-transform: uppercase;
   letter-spacing: 1px;
   font-size: 13px;
@@ -158,15 +158,28 @@ th {
   font-weight: 700;
 }
 
+td {
+  background-color: transparent;
+}
+
+tr:nth-child(even) td {
+  background-color: #161616;
+}
+
+tr:hover td {
+  background-color: #222222;
+  transition: background 0.2s;
+}
+
 body {
   background-image: 
-    linear-gradient(rgba(0,0,0,0.7), rgba(20,0,0,0.85)),
+    linear-gradient(rgba(0,0,0,0.45), rgba(20,0,0,0.6)),
     url('Back.jpg');
   background-size: cover;
   background-position: center;
   background-repeat: no-repeat;
   background-attachment: fixed;
-  background-color: #0a0a0a;
+  background-color: #1a1a1a;
   display: flex;
   justify-content: center;
   align-items: center;
@@ -175,7 +188,7 @@ body {
 }
 
 .container {
-  background: linear-gradient(160deg, #161616, #111111);
+  background: linear-gradient(160deg, #1e1e1e, #181818);
   border-radius: 8px;
   padding: 20px;
   width: 600px;
