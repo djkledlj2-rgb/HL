@@ -25,7 +25,7 @@ document.getElementById('csvFile').addEventListener('change', function(e) {
             }
         });
 
-        console.log('Рядків для запису:', rows.length);
+        console.log('строк для записывания:', rows.length);
 
         const delRes = await fetch(`${SUPABASE_URL}/rest/v1/resources?id=gte.0`, {
             method: 'DELETE',
