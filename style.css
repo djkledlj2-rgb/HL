@@ -23,17 +23,16 @@ td:not(:first-child), th:not(:first-child) {
     padding: 8px 16px;
     margin-bottom: 16px;
     cursor: pointer;
-    font-size: 13px;
     font-size: 11px;
     max-width: 275px;
-    line-height: 1; 
+    line-height: 1;
     margin-left: auto;
 }
 
 /* file-import */
 
 .file-btn {
-    background-color: #1a1a1a;
+    background: linear-gradient(135deg, #1a1a1a, #2a2a2a);
     color: #ffffff;
     border: 1px solid #e63946;
     border-radius: 8px;
@@ -42,11 +41,10 @@ td:not(:first-child), th:not(:first-child) {
     cursor: pointer;
     font-size: 13px;
     transition: transform 0.3s, background 0.2s;
-
 }
 
 .file-btn:hover {
-    background-color: #e63946;
+    background: linear-gradient(135deg, #e63946, #ff6b6b);
     transform: scale(1.08);
 }
 
@@ -84,7 +82,7 @@ td:not(:first-child), th:not(:first-child) {
   display: flex;
   flex-direction: column;
   gap: 12px;
-  background-color: #111111;
+  background: linear-gradient(160deg, #1a1a1a, #111111);
   border: 1px solid #2a2a2a;
   border-radius: 16px;
   padding: 16px;
@@ -121,7 +119,6 @@ td:not(:first-child), th:not(:first-child) {
   border-radius: 6px;
   border: 1px solid #333;
   white-space: nowrap;
-
   opacity: 0;
   transition: opacity 0.2s;
 }
@@ -152,7 +149,7 @@ th, td {
 }
 
 th {
-  background-color: #1e1e1e;
+  background: linear-gradient(90deg, #1e1e1e, #2a1a1a);
   text-transform: uppercase;
   letter-spacing: 1px;
   font-size: 13px;
@@ -162,7 +159,9 @@ th {
 }
 
 body {
-  background-image: url('Back.jpg');
+  background-image: 
+    linear-gradient(rgba(0,0,0,0.7), rgba(20,0,0,0.85)),
+    url('Back.jpg');
   background-size: cover;
   background-position: center;
   background-repeat: no-repeat;
@@ -173,9 +172,10 @@ body {
   align-items: center;
   min-height: 100vh;
   font-family: 'Poppins', sans-serif;
+}
 
 .container {
-  background-color: #111111;
+  background: linear-gradient(160deg, #161616, #111111);
   border-radius: 8px;
   padding: 20px;
   width: 600px;
@@ -204,3 +204,4 @@ body {
   left: 5px;
   color: #555;
   font-size: 6px;
+}
